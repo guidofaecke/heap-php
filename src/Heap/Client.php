@@ -2,12 +2,16 @@
 
 namespace Heap;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Heap\Exception\HeapException;
 use Heap\Helper\Request;
+use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
     private $appId;
+
+    private Request $request;
 
     /**
      * Client constructor.
@@ -29,7 +33,7 @@ class Client
     }
 
 
-    public function setAppId($appId)
+    public function setAppId($appId): void
     {
         $this->appId = $appId;
     }
@@ -39,17 +43,19 @@ class Client
      * @param $identity
      * @param array $properties
      *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws HeapException
+     * @return ResponseInterface
+     * @throws HeapException|GuzzleException
      */
-    public function track($event, $identity, $properties = array())
+    public function track($event, $identity, array $properties = array()): ResponseInterface
     {
-        if(!$event || empty($event)) {
+        if (empty($event)) {
             throw new HeapException('You need to set the event name.');
         }
 
-        if(!$identity || empty($identity)) {
-            throw new HeapException('You need to set the identity. More info: https://heapanalytics.com/docs/server-side');
+        if (empty($identity)) {
+            throw new HeapException(
+                'You need to set the identity. More info: https://heapanalytics.com/docs/server-side'
+            );
         }
 
         $data = array(
@@ -57,8 +63,8 @@ class Client
             'event' => $event,
             'identity' => $identity,
         );
-        
-        if(!empty($properties)){
+
+        if (!empty($properties)) {
             $data['properties'] = $properties;
         }
 
@@ -69,13 +75,15 @@ class Client
      * @param $identity
      * @param array $properties
      *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws HeapException
+     * @return ResponseInterface
+     * @throws HeapException|GuzzleException
      */
-    public function addUserProperties($identity, $properties = array())
+    public function addUserProperties($identity, $properties = array()): ResponseInterface
     {
-        if(!$identity || empty($identity)) {
-            throw new HeapException('You need to set the identity. More info: https://heapanalytics.com/docs/server-side');
+        if (empty($identity)) {
+            throw new HeapException(
+                'You need to set the identity. More info: https://heapanalytics.com/docs/server-side'
+            );
         }
 
         $data = array(

@@ -2,13 +2,17 @@
 
 namespace Heap\Helper;
 
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Utils;
 use Heap\Exception\HeapException;
 use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 class Request
 {
-    private $apiUri = 'https://heapanalytics.com/api';
+    private string $apiUri = 'https://heapanalytics.com/api';
+    private Client $http;
 
     /**
      * Request constructor.
@@ -23,20 +27,20 @@ class Request
      *
      * @return string
      */
-    public function generateUri($endpoint)
+    public function generateUri($endpoint): string
     {
-        return $this->apiUri.$endpoint;
+        return $this->apiUri . $endpoint;
     }
 
     /**
      * @param string $method
      * @param string $endpoint
-     * @param array $data
+     * @param array  $data
      *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     * @throws HeapException
+     * @return ResponseInterface
+     * @throws HeapException|GuzzleException
      */
-    public function call($method, $endpoint, $data)
+    public function call(string $method, string $endpoint, array $data): ResponseInterface
     {
         $fullUri = $this->generateUri($endpoint);
 
@@ -45,9 +49,9 @@ class Request
                 'headers' => array(
                     'Content-Type' => 'application/json',
                 ),
-                'body' => \GuzzleHttp\json_encode($data),
+                'body' => Utils::jsonEncode($data),
             ));
-        } catch(ServerException $e) {
+        } catch (ServerException $e) {
             throw new HeapException($e->getMessage());
         }
 

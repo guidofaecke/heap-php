@@ -4,7 +4,7 @@ PHP library for sending data through Heap API.
 ## Installation
 You can install it using Composer:
 ```
-composer require iagomelanias/heap-php
+composer require guidofaecke/heap-php
 ```
 
 ## Track Events

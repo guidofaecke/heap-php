@@ -1,21 +1,30 @@
 {
-    "name": "iagomelanias/heap-php",
+    "name": "guidofaecke/heap-php",
     "description": "Library for sending data through Heap API.",
     "type": "library",
     "keywords": ["heap", "api", "heap analytics", "analytics", "event tracking"],
     "require": {
-      "guzzlehttp/guzzle": "~6.0"
+        "php": "^7.4 || ^8.1",
+        "guzzlehttp/guzzle": "^6.0 || ^7.0",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "iagomelanias",
             "email": "me@imelanias.com"
+        },
+        {
+            "name": "Guido Faecke",
+            "email": "gfaecke@gmail.com"
         }
     ],
-  "autoload": {
-    "psr-4": {
-      "Heap\\": "src/Heap"
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Heap\\": "src/Heap"
+        }
     }
-  }
 }
