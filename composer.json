@@ -5,7 +5,9 @@
     "keywords": ["heap", "api", "heap analytics", "analytics", "event tracking"],
     "require": {
         "php": "^7.4 || ^8.1",
-        "guzzlehttp/guzzle": "^6.0 || ^7.0",
+        "guzzlehttp/guzzle": "^6.0 || ^7.0"
+    },
+    "require-dev": {
         "squizlabs/php_codesniffer": "^3.7"
     },
     "license": "MIT",
