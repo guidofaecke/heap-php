@@ -2,6 +2,8 @@
 PHP library for sending data through Heap API.
 
 ## Installation
+Minimum PHP 7.4
+
 You can install it using Composer:
 ```
 composer require guidofaecke/heap-php
